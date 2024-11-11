@@ -3,27 +3,34 @@ import './TicTacToe.css';
 import circle_icon from '../assets/circle.png';
 import cross_icon from '../assets/cross.png';
 
-let data = Array(9).fill("");
+let data: string[] = Array(9).fill("");
 
-const TicTacToe = () => {
-    let [count, setCount] = useState(0);
-    let [lock, setLock] = useState(false);
-    let titleRef = useRef(null);
+const TicTacToe: React.FC = () => {
+    const [count, setCount] = useState<number>(0);
+    const [lock, setLock] = useState<boolean>(false);
+    const titleRef = useRef<HTMLHeadingElement | null>(null);
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    let boxesRef = Array(9).fill().map(() => useRef(null));
+    const boxesRef = Array(9).fill(null).map(() => useRef<HTMLDivElement | null>(null));
 
-    const toggle = (e, num) => {
+    const toggle = (e: React.MouseEvent<HTMLDivElement>, num: number) => {
         if (lock || data[num]) return;
 
+        //Determines the symbol ('x' or 'o') based on the number of moves
         const currentSymbol = count % 2 === 0 ? "x" : "o";
         const icon = currentSymbol === "x" ? cross_icon : circle_icon;
 
-        e.target.innerHTML = `<img src='${icon}'>`;
+        if (e.target instanceof HTMLDivElement) {
+            e.target.innerHTML = `<img src='${icon}'>`;
+        }
+        
         data[num] = currentSymbol;
         setCount(count + 1);
+
+        //Checks if there is a winner after the move
         checkWin();
     };
 
+    //Function to check if there is a winner in the game
     const checkWin = () => {
         const winPatterns = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -37,19 +44,32 @@ const TicTacToe = () => {
                 return;
             }
         }
+        checkDraw();
     };
 
-    const won = (winner) => {
+    // Logic to determine if it's a tie
+    const checkDraw = () => {
+        if (count === 8 && !lock) {
+            setLock(true);
+            titleRef.current!.innerHTML = "Draw!";
+        }
+    };
+
+    // This function is called when a player wins and detects if X or O has won
+    const won = (winner: string) => {
         setLock(true);
-        titleRef.current.innerHTML = `¡Congratulations! ${winner === 'x' ? 'X' : 'O'} Wins`;
+        titleRef.current!.innerHTML = `¡Congratulations! ${winner === 'x' ? 'X' : 'O'} Wins`;
     };
 
+    // Button to restart the game
     const reset = () => {
         setLock(false);
         data.fill("");
-        titleRef.current.innerHTML = 'Tic <span>Tac</span> Toe';
+        titleRef.current!.innerHTML = 'Tic <span>Tac</span> Toe';
         boxesRef.forEach((box) => {
-            box.current.innerHTML = "";
+            if (box.current) {
+                box.current.innerHTML = "";
+            }
         });
         setCount(0);
     };
