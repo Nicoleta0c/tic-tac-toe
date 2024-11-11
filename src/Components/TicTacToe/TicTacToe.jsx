@@ -41,7 +41,7 @@ const TicTacToe = () => {
 
     const won = (winner) => {
         setLock(true);
-        titleRef.current.innerHTML = `¡Congratulations! ${winner === 'x' ? 'X' : 'O'} Wins.`;
+        titleRef.current.innerHTML = `¡Congratulations! ${winner === 'x' ? 'X' : 'O'} Wins GAY`;
     };
 
     const reset = () => {
