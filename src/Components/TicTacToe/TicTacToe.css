@@ -1,0 +1,53 @@
+.container{
+    text-align: center;
+}
+
+.title{
+    margin-top:50px ;
+    color: white;
+    font-size: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*para la parte de react*/
+.title span{
+    color: #8569f4;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.reset{
+    width: 250px;
+    height: 100px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 50px;
+    background-color: #1f3540;
+    font-size: 26px;
+    color:#8569f4;
+    margin-top: 25px;
+    margin-bottom: 50px;
+
+}
+
+/*tictactoe boxes*/
+
+.boxes{
+    display: flex;
+    height: 180px;
+    width: 180px;
+    background: #1f3540;
+    border: 4px solid #8569f4;
+    border-radius:12px; 
+    cursor: pointer;
+}
+
+.board{
+    height: 600px;
+    width: 564px;
+    display: flex;
+    margin: auto;
+}
